@@ -3,28 +3,19 @@ import hashlib
 import sys
 
 
+m = hashlib.md5()
 #inicializo la suma para los dataset pares e impares
-sumaPares= 0;
-sumaImpares=0;
+suma= 0;
 for line in sys.stdin:
 	#obtengo el numero de data set 
-	arrayDataset = line.split(":")
-	numeroDataset = arrayDataset[0];
-	#limpio los espacios en blanco y eliminar el retorno de carro
-	lineaNumeros = arrayDataset[1].strip();
-	lineaNumeros = lineaNumeros.replace("\n","");
-	#obtengo los numeros dentro de cada dataset
-	arrayNumeros = lineaNumeros.split(" ")
-	sumaInternaDataset = 0;
-	if len(arrayNumeros)>0:
-		for numero in arrayNumeros:
-			sumaInternaDataset=sumaInternaDataset+int(numero);
-	#compruebo si es impar o par el dataset
-
-	if int(numeroDataset)%2==0:
-		sumaPares = sumaPares + sumaInternaDataset	
-	else:
-		sumaImpares = sumaImpares + sumaInternaDataset	
-
-print "La suma de los dataset pares es: "+unicode(sumaPares)+"\n"
-print "La suma de los dataset impares es: "+unicode(sumaImpares)
+	line1 = line.strip();
+	line1 = line1.replace(" ","");
+	line1 = line1.replace(":","");
+	line1 = line1[0:10];
+	line1 = int(line1);
+	suma = line1;
+	m.update(str(suma))
+	print m.hexdigest()
+print "La suma de los dataset es: "+unicode(suma)
+m.update(str(suma))
+print "Su hexadecimal es: "+unicode(m.hexdigest())
