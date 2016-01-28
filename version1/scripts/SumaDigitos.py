@@ -3,19 +3,13 @@
 import hashlib
 import sys
 
-m = hashlib.md5()
-
 for line in sys.stdin:
-	line.replace(" ", "")
-	line.replace(":", "")
-	suma = ObtenerValor(line)
-
-	print suma
-
-def ObtenerValor(line):
+	line1 = line.replace(":", "")
+	line1 = line1.replace(" ", "")
+	line1 = line1.replace("\n", "")
+	#suma = ObtenerValor(line1)
 	tmpSuma = 0 #variable contador
-	for caracter in line: #Por cada caracter en "LLave" 
-		tmpSuma += ord(caracter) #Aumentamos el valor de tmpSuma en el valor ascii del caracter "actual"
-	return tmpSuma
-
-        
+	for caracter in line1: #Por cada caracter en "LLave"
+		tmpSuma += int(caracter) #Aumentamos el valor de tmpSuma en el valor ascii del caracter "actual"
+	print tmpSuma
+#print tmpSuma
