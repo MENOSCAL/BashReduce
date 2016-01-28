@@ -1,0 +1,28 @@
+Sistemas Operativos
+Proyecto Final
+Evaluación de rendimiento de 4 programas con BashReduce
+
+Descripción del problema
+En este proyecto, usted evaluará las mejoras al rendimiento de 4 programas/procesos que se
+obtienen al ejecutar dichos procesos en múltiples cores y en múltiples computadores, versus el
+ejecutar el proceso en un solo core de un solo computador.
+Alcance
+Ud. deberá diseñar, ejecutar y documentar experimentos que le permitan evaluar el rendimiento
+de 2 a 4 procesos diferentes (uno por cada miembro del grupo, con un mínimo de 2 procesos
+para quienes trabajen de manera individual). El resultado final será el documento con (al
+menos) un gráfico para cada una de las 4 evaluaciones. Cada gráfico deberá contar con (al
+menos) 4 curvas de rendimiento, una para el proceso en un solo core, otra para el proceso en 2
+cores, otra para el proceso en la cantidad de cores de la máquina, y otra para el proceso
+corriendo en múltiples PCs (y posiblemente en múltiples cores en cada una).
+Sus experimentos deben estar diseñados de tal manera que permitan apreciar las mejoras al
+rendimiento en varios escenarios, por ejemplo:
+Procesos CPU­bound
+Procesos IO­bound que trabajan con un archivo de entrada pequeño
+Procesos IO­bound que trabajan con un archivo de entrada grande
+Procesos IO­bound que trabajan con múltiples archivos de entrada
+Cada proceso a ser evaluado puede ser un programa en bash, awk, python, o una serie de
+programas concatenados con pipes.
+El documento deberá documentar los resultados, incluyendo un análisis que permita entender
+la diferencias en los diferentes resultados. Por ejemplo: Si un proceso permite tener mejoras
+considerables con bashreduce mientras que otro no mejora o hasta empeora. ¿Por qué? Debe
+incluir este análisis en una sección en el documento.

@@ -1,0 +1,106 @@
+NAME
+	br - bashreduce, map/reduce in bash
+
+SYNOPSIS
+	br [-h '<host>[ <host>][...]'] [-f]
+		[-m <map>] [-r <reduce>] [-M <merge>]
+		[-i <input>] [-o <output>] [-c <column>] [-S <sort-mem-MB>]
+		[-t <tmp>] [-?]
+
+DESCRIPTION
+	br implements a map/reduce framework that allows the map and reduce
+	jobs to be constructed from standard Unix tools.  It can operate on
+	data piped into it or on files known to exist on the worker nodes.
+
+INSTALLATION
+	br can run out-of-the box but for convenience, put it somewhere on
+	your PATH.  The brutils come with a Makefile that will install
+	these tools, probably to /usr/local/bin.  If you leave these tools
+	in place relative to br, they'll be picked up and used from there.
+
+	You'll need passwordless ssh access to each machine you wish to
+	use as a worker (even localhost, for now).
+
+OPTIONS
+	-h	The list of hosts to be used, specified as a space-
+		delimited list.  Specifying the same host multiple
+		times is allowed and is useful for taking explicit
+		advantage of multiple cores.
+
+	-f	Only pass filenames from the master to the workers,
+		under the assumption that they all have a mirror of
+		the data set.  This is equivalent to prefixing your
+		map program with "xargs cat |".
+
+	-m	The map program, which should expect initial data on
+		stdin and produce the intermediate data on stdout.
+		The stderr from this program will be logged [1].
+
+	-r	The reduce program, which should expect intermediate
+		data on stdin and produce the final data on stdout.
+		The stderr from this program will be logged [1].
+
+	-M	The merge program, which should expect each node's
+		final data on stdin and produce the unified final
+		data on stdout.  The stderr from this program will
+		be logged [1].
+
+	-i	A file or directory to serve as input.  If it is a
+		file, this is equivalent to piping that file into
+		br.  If it is a directory, it is equivalent to
+		piping the names of every file in that directory
+		into br.
+
+	-o	The local file where output will be stored.
+		Defaults to stdout.
+
+	-c	The column used by sort to produce the final output.
+		Defaults to 1.
+
+	-S	This is directly the -S option from sort(1).  It defaults
+		to 256M.
+
+	-t	The temporary directory for storing br files.  All of
+		these files will be prefixed with "br_" and, with the
+		exception of br_stderr, will be cleaned up upon
+		successful exit.  Defaults to /tmp.
+
+	-?	Shows a help message and details about the arguments.
+
+FILES
+	All of these files are in the tmp directory specified by the user,
+	which defaults to /tmp.
+
+	br_job_*
+		The master uses named pipes to move data (or filenames)
+		to the worker(s).  These pipes are stored here.  This
+		directory is removed at the end of the job.
+
+	br_node_*
+		Each node uses named pipes to buffer data.  These
+		are stored here and do not overlap, even if a
+		node is specified twice in the host list.  These
+		directories are removed at the end of the job.
+
+	br_stderr
+		This file is cleared at the beginning of each
+		job.  It records stderr from most commands run
+		by br.  This is currently a point of contention
+		between jobs.  This file is NOT removed at the
+		end of the job.
+
+NOTES
+	[1]	Because you can specify a pipeline for any or all of the map,
+		reduce and merge steps, br can only reliably log stderr from
+		the last step in those pipelines.
+
+AUTHORS
+	Erik Frey <erik@fawx.com>
+	Richard Crowley <r@rcrowley.org>
+
+SEE ALSO
+	<http://github.com/erikfrey/bashreduce>
+	<http://github.com/rcrowley/bashreduce>
+
+LICENSE
+	The goodwill of Erik Frey.
