@@ -8,18 +8,24 @@ sumaPares= 0;
 sumaImpares=0;
 for line in sys.stdin:
 	#obtengo el numero de data set 
-	numeroDataset = line.split(":")
-	numeroDataset = numeroDataset[0];
-	#limpio los espacios en blanco
-	lineaNumeros = numeroDataset[1].strip();
+	arrayDataset = line.split(":")
+	print arrayDataset
+	numeroDataset = arrayDataset[0];
+	#limpio los espacios en blanco y eliminar el retorno de carro
+	lineaNumeros = arrayDataset[1].strip();
+	lineaNumeros = lineaNumeros.replace("\n","");
+	print lineaNumeros
 	#obtengo los numeros dentro de cada dataset
 	arrayNumeros = lineaNumeros.split(" ")
+	print arrayNumeros
 	sumaInternaDataset = 0;
 	if len(arrayNumeros)>0:
 		for numero in arrayNumeros:
-			sumaInternaDataset=sumaInternaDataset+numero;
+			print numero
+			sumaInternaDataset=sumaInternaDataset+int(numero);
+			print sumaInternaDataset
 	#compruebo si es impar o par el dataset
-	if numeroDataset%2==0:
+	if int(numeroDataset)%2==0:
 		sumaPares = sumaPares + sumaInternaDataset	
 	else:
 		sumaImpares = sumaImpares + sumaInternaDataset	
