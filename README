@@ -26,3 +26,12 @@ El documento deberá documentar los resultados, incluyendo un análisis que permit
 la diferencias en los diferentes resultados. Por ejemplo: Si un proceso permite tener mejoras
 considerables con bashreduce mientras que otro no mejora o hasta empeora. ¿Por qué? Debe
 incluir este análisis en una sección en el documento.
+
+
+Victor
+
+Bash(4 core)
+time ./br -h "localhost localhost localhost localhost" -r /home/victor/bashreduce/sha1.py -i airbnbPeq.csv -o salida.txt
+
+Bash(2 Pc)
+time ./br -h "localhost 192.168.100.2" -r /home/victor/bashreduce/sha1.py -i airbnbPeq.csv -o salida.txt
